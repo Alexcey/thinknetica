@@ -17,11 +17,11 @@ elsif (a==b or b==c or a==c)
   p "треугольник равнобедренный"
 else 
   if (a > b and a > c)
-    p "треугольник прямоугольным" if (Math.sqrt(b) + Math.sqrt(c) > Math.sqrt(a))
+    p "треугольник прямоугольным" if b*b + c*c > a*a
   elsif (b > a and b > a)
-    p "треугольник прямоугольным" if (Math.sqrt(a) + Math.sqrt(c) > Math.sqrt(b))
+    p "треугольник прямоугольным" if a*a + c*c > b*b
   elsif  (c > a and c > b)
-    p "треугольник прямоугольным" if (Math.sqrt(a) + Math.sqrt(b) > Math.sqrt(c))
+    p "треугольник прямоугольным" if a*a + b*b > c*c
   else
     p "треугольик обычный"
   end
