@@ -15,9 +15,9 @@ elsif d == 0
   p "корень один, d = 0, x1:"
   p -b / (2 * a).to_f
 else
-  d = Math.sqrt(d)
-  x1 = (-b + d) / (2 * a)
-  x2 = (-b - d) / (2 * a)
+  d_root = Math.sqrt(d)
+  x1 = (-b + d_root) / (2 * a)
+  x2 = (-b - d_root) / (2 * a)
   p "x1: #{x1}"
   p "x2: #{x2}"
 end
