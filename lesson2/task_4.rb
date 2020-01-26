@@ -1,7 +1,7 @@
 # task4_1
 calendar = { 'January' => 31, 'February' => 28, 'March' => 31, 'April' => 30,
-             'May' => 31, 'June' => 30, 'July' => 31, 'August' => 31, 'September' => 30,
-             'October' => 31, 'November' => 31, 'December' => 31 }
+             'May' => 31, 'June' => 30, 'July' => 31, 'August' => 31,
+             'September' => 30, 'October' => 31, 'November' => 31, 'December' => 31 }
 calendar.each { |key, value| puts key if value == 30 }
 
 # task4_2
@@ -26,3 +26,4 @@ array2.pop
 
 # task4_4
 english_letter = { 'A' => 0, 'E' => 4, 'I' => 8, 'O' => 14, 'U' => 20 }
+puts english_letter

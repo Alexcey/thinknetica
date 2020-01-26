@@ -12,16 +12,18 @@ calendar = { 'January' => 31, 'February' => 28, 'March' => 31, 'April' => 30,
              'October' => 31, 'November' => 31, 'December' => 31 }
 
 if day > 31 || day < 1 || month < 1 || month > 12 || year < 1
-  puts 'Неверные данные' 
-else 
-  calendar["February"] = 29 if year % 400 == 0 || year % 4 == 0 && year % 100 != 0
+  puts 'Неверные данные'
+else
+  if year % 400 == 0 || year % 4 == 0 && year % 100 != 0
+    calendar['February'] = 29
+  end
   i = 1
   number = day
-  calendar.each do |key, value| 
+  calendar.each do |_key, value|
     if i == month
-      break 
-    else 
-      number = number + value
+      break
+    else
+      number += value
       i += 1
     end
   end
