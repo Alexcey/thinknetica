@@ -19,11 +19,11 @@ else
   end
   i = 1
   number = day
-  calendar.each do |_key, value|
+  calendar.each do |h_month, h_day|
     if i == month
       break
     else
-      number += value
+      number += h_day
       i += 1
     end
   end
