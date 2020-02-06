@@ -1,6 +1,7 @@
+require_relative 'route'
 class Train
   attr_accessor :count
-  attr_reader :speed, :type, :number
+  attr_reader :speed, :type, :number, :route
 
   def initialize(number, type, count)
     @number = number
@@ -16,21 +17,26 @@ class Train
     self.speed = 0
   end
 
-  def count_up
-    self.count += 1 if self.speed == 0
+  def add_count
+    count += 1 if self.speed == 0
   end
 
-  def count_down
-    self.count -= 1 if self.speed == 0
+  def remove_count
+    count -= 1 if self.speed == 0 && count > 0
   end
 
-  def get_route(route)
-    #Может принимать маршрут следования
-    
+  def set_route(route)
+    @route = route
+    @len = 0
   end
 
-  def get_route(route)
-    #Может принимать маршрут следования
-    
+  def go
+    self.len += 1
+  end
+
+  def station
+    puts self.route.stations[len - 1] if len > 0
+    puts self.route.stations[len]
+    puts self.route.stations[len + 1] if len + 1 <= route.stations.length - 1
   end
 end

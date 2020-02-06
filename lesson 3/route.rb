@@ -1,16 +1,16 @@
 class Route
-  attr_accessor :list_stations
+  attr_accessor :stations
 
-  def initialize(first_station, last_station)
-    @first_station = first_station
-    @last_station = last_station
+  def initialize(first, last)
+    @stations = [first, last]
   end
 
-  def add_station(station)
-    @list_stations << station
+  def add(station)
+    stations.insert(stations.length - 1, station)
   end
 
-  def delete_station(station)
-    @list_stations.delete(station)
+  #не тру метод, но для примера сойдет
+  def remove(station)
+    stations.delete(station)
   end
 end

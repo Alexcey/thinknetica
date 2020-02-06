@@ -1,26 +1,23 @@
 class Station
-  attr_accessor :list_trains
+  attr_accessor :trains
 
   def initialize(name)
     @name = name
-    @list_trains = []
+    @trains = []
   end
 
-  def input_train(train)
-    self.list_trains << train
+  def add(train)
+    trains << train
   end
 
-  #def return_all_train_in_station
-  #  self.list_trains.each { |train| puts train }
-  #end
-
-  def return_train_of_type(type)
-    list_type = []
-    self.list_trains.each { |train| list_type << train if train.type == type }
-    puts list_type
+  def select_of_type(type)
+    type = []
+    trains.select { |train| type << train if train.type == type }
+    puts type
   end
 
+  #не тру метод, но для примера сойдет
   def send_train(train)
-    self.list_trains.delete(train)
+    trains.delete(train)
   end
 end
