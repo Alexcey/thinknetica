@@ -9,7 +9,7 @@ class Train
     @count = count
   end
 
-  def speed_up
+  def up
     self.speed += 10
   end
 
@@ -17,15 +17,15 @@ class Train
     self.speed = 0
   end
 
-  def add_count
+  def add
     count += 1 if self.speed == 0
   end
 
-  def remove_count
+  def remove
     count -= 1 if self.speed == 0 && count > 0
   end
 
-  def set_route(route)
+  def route(route)
     @route = route
     @len = 0
   end

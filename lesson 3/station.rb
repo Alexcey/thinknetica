@@ -10,14 +10,12 @@ class Station
     trains << train
   end
 
-  def select_of_type(type)
-    type = []
-    trains.select { |train| type << train if train.type == type }
-    puts type
+  def select(type)
+    puts trains.select { |train | train.type == type }
   end
 
   #не тру метод, но для примера сойдет
-  def send_train(train)
+  def remove(train)
     trains.delete(train)
   end
 end
