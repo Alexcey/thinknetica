@@ -6,6 +6,7 @@ class Route
   end
 
   def add(station)
+    #stations.insert(-1, station)
     stations.insert(stations.length - 1, station)
   end
 

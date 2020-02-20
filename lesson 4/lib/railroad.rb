@@ -25,14 +25,14 @@ class RailRoad
       puts 'Введите 3, чтобы создавать маршруты'
       puts 'Введите 4, чтобы добавить станцую в маршрут'
       puts 'Введите 5, чтобы удалить станцую из маршрута'
-      #puts 'Введите 6, чтобы назначать маршрут поезду'
-      #puts 'Введите 7, чтобы добавлять вагоны к поезду'
-      #puts 'Введите 8, чтобы отцеплять вагоны от поезда'
-      #puts 'Введите 9, чтобы перемещать поезд по маршруту вперед'
-      #puts 'Введите 10, чтобы переместить поезд по маршруту назад'
+      puts 'Введите 6, чтобы назначать маршрут поезду'
+      puts 'Введите 7, чтобы добавлять вагоны к поезду'
+      puts 'Введите 8, чтобы отцеплять вагоны от поезда'
+      puts 'Введите 9, чтобы перемещать поезд по маршруту вперед'
+      puts 'Введите 10, чтобы переместить поезд по маршруту назад'
       puts 'Введите 11, чтобы посмотреть все станции'
       puts 'Введите 12, чтобы посмотреть все маршруты'
-      #puts 'Введите 13, чтобы посмотреть все поезда'
+      puts 'Введите 13, чтобы посмотреть все поезда'
       puts ''
 
       i = gets.chomp.to_i
@@ -42,31 +42,31 @@ class RailRoad
         puts 'Пока'
         break
       when 1
-        railsroad.create_stattion
+        create_stattion
       when 2
-        railsroad.create_train
+        create_train
       when 3
-        railsroad.create_route
+        create_route
       when 4
-        railsroad.add_station
+        add_station
       when 5
-        railsroad.remove_station
+        remove_station
       when 6
-        #railsroad.
+        add_route_in_train
       when 7
-        #railsroad.
+        add_wagon
       when 8
-        #railsroad.
+        remove_wagon
       when 9
-        #railsroad.
+        up_route
       when 10
-        #railsroad.
+        down_route
       when 11
-        railsroad.all_stations
+        all_stations
       when 12
-        railsroad.all_routes
+        all_routes
       when 13
-        #railsroad.
+        all_trains
       end
     end
   end
@@ -80,9 +80,8 @@ class RailRoad
   #  stations.push(s2)
   #  stations.push(s3)
   #  stations.push(s4)
-  #  t1 = CargoTrain.new('#t1')
-  #  t2 = PassengerTrain.new('#t2')
-  #  t3 = PassengerTrain.new('#t3')
+  #  trains << CargoTrain.new('#t1')
+  #  trains << PassengerTrain.new('#t2')
 
   #  r1 = Route.new(s1, s2)
   #  r2 = Route.new(s1, s3)
@@ -120,15 +119,41 @@ class RailRoad
   end
 
   def add_station
-    puts "Выберите маршут"
-    route = choose(select_route)
-    route.add(choose_station)
+    puts_route
+    choose(select_route).add(choose_station)
   end
 
   def remove_station
-    puts "Выберите маршут"
-    route = choose(select_route)
-    route.remove(choose_station)
+    puts_route
+    choose(select_route).remove(choose_station)
+  end
+
+  def add_route_in_train
+    puts_train
+    train = choose(select_train)
+    puts_route
+    train.add_route(choose(select_route))
+  end
+
+  def add_wagon
+    puts_train
+    train = choose(select_train)
+    if train.type == 'cargo'
+      c = CargoWagon.new(rand(100))
+    else 
+      c = PassengerWagon.new(rand(100))
+    end
+    train.add_wagon(c)
+  end
+
+  def remove_wagon
+    puts_train
+    train = choose(select_train)
+    puts "Выберите вагон"
+    puts train
+    puts train.wagons
+    wagon = choose(select_wagon(train.wagons))
+    train.remove(wagon)
   end
 
   def all_stations
@@ -139,10 +164,14 @@ class RailRoad
     select_route
   end
 
+  def all_trains
+    puts "Все поезда, надо сделать :)"
+  end
+
   private
 
   def choose_station
-    puts "Выберите станцию"
+    puts "Список станций"
     station = choose(select_station)
   end
 
@@ -157,7 +186,13 @@ class RailRoad
         puts "Индекс в не диапазона"
       end
     end
-    stations[i]
+    array[i]
+  end
+
+  def select_wagon(wagons)
+    wagons.each_with_index { |value,index| 
+      puts "Index: #{index}. Вагон: #{value.number}" 
+    }
   end
 
   def select_station
@@ -170,5 +205,17 @@ class RailRoad
       value.stations.each { |st| arr << st.name }
       puts "Index: #{index}. Путь следования: #{arr}" 
     }
+  end
+
+  def select_train
+    trains.each_with_index { |value,index| puts "Index: #{index}. Поезд: #{value.number}" }
+  end
+
+  def puts_route
+    puts "Список маршутов:"
+  end
+
+  def puts_train
+    puts "Список поездов:"
   end
 end

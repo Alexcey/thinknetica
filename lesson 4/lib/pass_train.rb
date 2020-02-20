@@ -1,8 +1,7 @@
-require_relative 'Train'
+require_relative 'train'
 
 class PassengerTrain < Train
-  def initialize(number)
-    @number = number
-    @type = :pass
+  def initialize(number, type = ':pass')
+    super
   end
 end

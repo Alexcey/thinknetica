@@ -1,8 +1,8 @@
 require_relative 'wagon'
-
 class PassengerWagon < Wagon
-  def initialize(number)
-    @number = number
-    @type = :pass
+  attr_reader :number
+  
+  def initialize(number, type = ':pass')
+    super
   end
 end
