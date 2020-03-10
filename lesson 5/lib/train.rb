@@ -1,7 +1,9 @@
 require_relative 'manufacturer'
+require_relative 'instance_counter'
 
 class Train
   include Manufacturer
+  include InstanceCounter
   attr_reader :speed, :type, :number, :route
   attr_accessor :wagons
 
@@ -10,6 +12,7 @@ class Train
     @type = type
     @speed = 0
     @wagons = []
+    register_instance
   end
 
   def up
