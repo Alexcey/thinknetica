@@ -7,12 +7,19 @@ class Train
   attr_reader :speed, :type, :number, :route
   attr_accessor :wagons
 
+  @@trains = {}
+
   def initialize(number, type)
     @number = number
     @type = type
     @speed = 0
     @wagons = []
+    @@trains[number] = self
     register_instance
+  end
+
+  def self.find(number)
+    @@trains[number]
   end
 
   def up
