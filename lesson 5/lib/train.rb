@@ -40,11 +40,11 @@ class Train
 
   def add_route(route)
     @route = route
-    @len = 0
+    @length = 0
   end
 
   def go
-    self.len += 1
+    self.length += 1
   end
 
   def station
