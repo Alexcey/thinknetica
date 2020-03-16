@@ -25,7 +25,7 @@ class Route
   private
 
   def validate!
-    raise "Начальная станция обязательная" if stations.first.empty?
-    raise "Конечная станция обязательная" if stations.last.empty?
+    raise "Начальная станция обязательная" if stations.first.name.empty?
+    raise "Конечная станция обязательная" if stations.last.name.empty?
   end
 end

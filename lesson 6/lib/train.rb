@@ -1,6 +1,8 @@
 require_relative 'manufacturer'
 require_relative 'instance_counter'
 require_relative 'validate'
+require_relative 'cargo_train'
+require_relative 'pass_train'
 
 class Train
   include Manufacturer
@@ -12,7 +14,6 @@ class Train
   NUMBER_FORMAT = /^[\w\d]{3}-?[\w\d]{2}$/i.freeze
 
   @@trains = {}
-
   def initialize(number, type)
     @number = number
     @type = type
@@ -61,7 +62,7 @@ class Train
   protected 
 
   def validate!
-    raise "Номер обязательно" if number.empty?
+    raise 'Номер обязательно' if number.empty?
     raise "Неверный формат номера #{number}" if number !~ NUMBER_FORMAT
   end
 

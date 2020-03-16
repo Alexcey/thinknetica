@@ -1,13 +1,13 @@
 require_relative 'station'
 require_relative 'train'
 require_relative 'route'
-require_relative 'pass_train'
-require_relative 'cargo_train'
 require_relative 'pass_wagon'
 require_relative 'cargo_wagon'
 
 class RailRoad
   attr_reader :stations, :trains, :routes, :wagons
+
+  VALUE = ['cargo','pass']
 
   def initialize
     @stations = []
@@ -96,20 +96,20 @@ class RailRoad
   end
 
   def create_train
+    attempt = 0
     begin
       puts 'Номер поезда:'
       number = gets.chomp.to_s
       puts 'Тип поезда: cargo or pass'
       type = gets.chomp.to_s
-      raise ArgumentError, 'Неправильный тип' if type != 'cargo' || type != 'pass'
-    rescue ArgumentError => e
-    puts e.message
-    retry
-    end
-    if type == 'cargo'
-      trains << CargoTrain.new(number)
-    else
-      trains << PassengerTrain.new(number)
+      raise 'Неправильный тип поезда' if !VALUE.include?(type)
+      trains << (type == 'cargo' ? CargoTrain.new(number) : PassengerTrain.new(number))
+      puts "Поезд создан #{number}"
+    rescue RuntimeError => e
+      attempt += 1
+      puts e.message
+      retry if attempt < 3
+      puts "Поезд не создан"
     end
   end
 
