@@ -96,16 +96,20 @@ class RailRoad
   end
 
   def create_train
-    puts 'Номер поезда:'
-    number = gets.chomp.to_s
-    puts 'Тип поезда: cargo or pass'
-    type = gets.chomp.to_s
+    begin
+      puts 'Номер поезда:'
+      number = gets.chomp.to_s
+      puts 'Тип поезда: cargo or pass'
+      type = gets.chomp.to_s
+      raise ArgumentError, 'Неправильный тип' if type != 'cargo' || type != 'pass'
+    rescue ArgumentError => e
+    puts e.message
+    retry
+    end
     if type == 'cargo'
       trains << CargoTrain.new(number)
-    elsif type == 'pass'
-      trains << PassengerTrain.new(number)
     else
-      puts 'Поезд не создан. Неверный тип поезда'
+      trains << PassengerTrain.new(number)
     end
   end
 

@@ -1,17 +1,22 @@
 require_relative 'manufacturer'
 require_relative 'instance_counter'
+require_relative 'validate'
 
 class Train
   include Manufacturer
   include InstanceCounter
+  include Validate
   attr_reader :speed, :type, :number, :route
   attr_accessor :wagons
+
+  NUMBER_FORMAT = /^[\w\d]{3}-?[\w\d]{2}$/i.freeze
 
   @@trains = {}
 
   def initialize(number, type)
     @number = number
     @type = type
+    validate!
     @speed = 0
     @wagons = []
     @@trains[number] = self
@@ -54,6 +59,11 @@ class Train
   end
 
   protected 
+
+  def validate!
+    raise "Номер обязательно" if number.empty?
+    raise "Неверный формат номера #{number}" if number !~ NUMBER_FORMAT
+  end
 
   def up!
     @speed += 10
