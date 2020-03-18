@@ -1,8 +1,7 @@
 require_relative 'wagon'
 class CargoWagon < Wagon
-  attr_reader :number
   
-  def initialize(number, type = ':cargo')
+  def initialize(number, type = ':cargo', size)
     super
   end
 end

@@ -1,6 +1,8 @@
 require_relative 'station'
 require_relative 'train'
 require_relative 'route'
+require_relative 'pass_train'
+require_relative 'cargo_train'
 require_relative 'pass_wagon'
 require_relative 'cargo_wagon'
 
@@ -143,9 +145,13 @@ class RailRoad
     puts_train
     train = choose(select_train)
     if train.type == 'cargo'
-      c = CargoWagon.new(rand(100))
+      puts "Выберите объем:"
+      size = gets.chomp.to_i
+      c = CargoWagon.new(rand(100), size)
     else 
-      c = PassengerWagon.new(rand(100))
+      puts "Выберите кол-во мест:"
+      size = gets.chomp.to_i
+      c = PassengerWagon.new(rand(100), size)
     end
     train.add_wagon(c)
   end

@@ -1,8 +1,11 @@
 require_relative 'wagon'
 class PassengerWagon < Wagon
-  attr_reader :number
   
-  def initialize(number, type = ':pass')
+  def initialize(number, type = ':pass', size)
+    super
+  end
+
+  def set_balance(value = 1)
     super
   end
 end

@@ -1,8 +1,6 @@
 require_relative 'manufacturer'
 require_relative 'instance_counter'
 require_relative 'validate'
-require_relative 'cargo_train'
-require_relative 'pass_train'
 
 class Train
   include Manufacturer
