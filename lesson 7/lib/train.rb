@@ -26,6 +26,10 @@ class Train
     @@trains[number]
   end
 
+  def wagons_block
+    @wagons.each { |wagon| yield(wagon) }
+  end
+
   def up
     up!
   end
