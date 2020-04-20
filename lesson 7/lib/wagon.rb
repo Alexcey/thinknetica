@@ -2,7 +2,7 @@ require_relative 'manufacturer'
 
 class Wagon 
   include Manufacturer
-  attr_reader :number, :balance, :type
+  attr_reader :number, :balance, :type, :size
 
   def initialize(number, type, size)
     @number = number

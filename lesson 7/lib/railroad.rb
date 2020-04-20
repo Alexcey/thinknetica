@@ -181,11 +181,36 @@ class RailRoad
   def list_train_in_station
     @stations.each do |station|
       puts "Станция: #{station.name}" 
-      station.trains_block {|train| puts "Номер поезда: #{train.number}. Тип: #{train.type}. Кол-во вагонов: #{train.wagons.size}"}
+      station.trains_block do |train|
+        puts "Номер поезда: #{train.number}. Тип: #{train.type}. Кол-во вагонов: #{train.wagons.size}"
+        puts "#{list_wagon_in_train(train)}"
+      end
     end
   end
 
+  def list_wagon_in_train(train)
+    train.wagons_block {|wagon| 
+      puts "#{type_wagon(wagon)}. Всего мест: #{wagon.size}. Свободно: #{wagon.get_balance}. Занято: #{wagon.size - wagon.get_balance}"
+    }
+  end
+
+  def change_balance_in_wagon
+    wagon = choose(select_wagon(choose(select_train).wagons))
+    puts "Номер вагона: #{wagon.number}. Размер: #{wagon.size} . Занято: #{wagon.balance}"
+    puts "Изменить #{type_wagon(wagon)}:"
+    value = gets.chomp.to_i
+    wagon.set_balance(value)
+  end
+
   private
+
+  def balance_wagon(wagon)
+    wagon.type == ':pass' ? ("место в вагоне") : ("объем в вагоне")
+  end
+
+  def type_wagon(wagon)
+    wagon.type == ':pass' ? ("Пассажирский") : ("Грузовой")
+  end
 
   def choose_station
     puts "Список станций"
@@ -208,7 +233,7 @@ class RailRoad
 
   def select_wagon(wagons)
     wagons.each_with_index { |value,index| 
-      puts "Index: #{index}. Вагон: #{value.number}" 
+      puts "Index: #{index}. Номер вагона: #{value.number}" 
     }
   end
 
