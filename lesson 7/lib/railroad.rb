@@ -178,6 +178,13 @@ class RailRoad
     puts "Все поезда, надо сделать :)"
   end
 
+  def list_train_in_station
+    @stations.each do |station|
+      puts "Станция: #{station.name}" 
+      station.trains_block {|train| puts "Номер поезда: #{train.number}. Тип: #{train.type}. Кол-во вагонов: #{train.wagons.size}"}
+    end
+  end
+
   private
 
   def choose_station
