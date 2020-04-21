@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'station'
 require_relative 'train'
 require_relative 'route'
@@ -9,7 +11,7 @@ require_relative 'cargo_wagon'
 class RailRoad
   attr_reader :stations, :trains, :routes, :wagons
 
-  VALUE = ['cargo','pass']
+  VALUE = %w[cargo pass].freeze
 
   def initialize
     @stations = []
@@ -18,7 +20,7 @@ class RailRoad
     @wagons = []
   end
 
-  def start(railsroad)
+  def start(_railsroad)
     loop do
       puts ''
       puts 'Введите 0, чтобы выйти из программы'
@@ -73,12 +75,12 @@ class RailRoad
     end
   end
 
-  #def seed
+  # def seed
   #  s1 = Station.new('Москва')
   #  s2 = Station.new('Питер')
   #  s3 = Station.new('Казань')
   #  s4 = Station.new('Новгород')
-  #  stations.push(s1) 
+  #  stations.push(s1)
   #  stations.push(s2)
   #  stations.push(s3)
   #  stations.push(s4)
@@ -89,7 +91,7 @@ class RailRoad
   #  r2 = Route.new(s1, s3)
   #  routes << r1
   #  routes << r2
-  #end
+  # end
 
   def create_stattion
     puts 'Имя станции:'
@@ -104,24 +106,25 @@ class RailRoad
       number = gets.chomp.to_s
       puts 'Тип поезда: cargo or pass'
       type = gets.chomp.to_s
-      raise 'Неправильный тип поезда' if !VALUE.include?(type)
+      raise 'Неправильный тип поезда' unless VALUE.include?(type)
+
       trains << (type == 'cargo' ? CargoTrain.new(number) : PassengerTrain.new(number))
       puts "Поезд создан #{number}"
     rescue RuntimeError => e
       attempt += 1
       puts e.message
       retry if attempt < 3
-      puts "Поезд не создан"
+      puts 'Поезд не создан'
     end
   end
 
   def create_route
-    puts "Выберите начальную станцию"
+    puts 'Выберите начальную станцию'
     first = choose(select_station)
-    puts "Выберите конечную станцию"
+    puts 'Выберите конечную станцию'
     last = choose(select_station)
     routes << Route.new(first, last)
-    puts "Маршут создан"
+    puts 'Маршут создан'
   end
 
   def add_station
@@ -145,11 +148,11 @@ class RailRoad
     puts_train
     train = choose(select_train)
     if train.type == 'cargo'
-      puts "Выберите объем:"
+      puts 'Выберите объем:'
       size = gets.chomp.to_i
       c = CargoWagon.new(rand(100), size)
-    else 
-      puts "Выберите кол-во мест:"
+    else
+      puts 'Выберите кол-во мест:'
       size = gets.chomp.to_i
       c = PassengerWagon.new(rand(100), size)
     end
@@ -159,7 +162,7 @@ class RailRoad
   def remove_wagon
     puts_train
     train = choose(select_train)
-    puts "Выберите вагон"
+    puts 'Выберите вагон'
     puts train
     puts train.wagons
     wagon = choose(select_wagon(train.wagons))
@@ -175,23 +178,23 @@ class RailRoad
   end
 
   def all_trains
-    puts "Все поезда, надо сделать :)"
+    puts 'Все поезда, надо сделать :)'
   end
 
   def list_train_in_station
     @stations.each do |station|
-      puts "Станция: #{station.name}" 
+      puts "Станция: #{station.name}"
       station.trains_block do |train|
         puts "Номер поезда: #{train.number}. Тип: #{train.type}. Кол-во вагонов: #{train.wagons.size}"
-        puts "#{list_wagon_in_train(train)}"
+        puts list_wagon_in_train(train).to_s
       end
     end
   end
 
   def list_wagon_in_train(train)
-    train.wagons_block {|wagon| 
+    train.wagons_block do |wagon|
       puts "#{type_wagon(wagon)}. Всего мест: #{wagon.size}. Свободно: #{wagon.get_balance}. Занято: #{wagon.size - wagon.get_balance}"
-    }
+    end
   end
 
   def change_balance_in_wagon
@@ -205,59 +208,59 @@ class RailRoad
   private
 
   def balance_wagon(wagon)
-    wagon.type == ':pass' ? ("место в вагоне") : ("объем в вагоне")
+    wagon.type == ':pass' ? 'место в вагоне' : 'объем в вагоне'
   end
 
   def type_wagon(wagon)
-    wagon.type == ':pass' ? ("Пассажирский") : ("Грузовой")
+    wagon.type == ':pass' ? 'Пассажирский' : 'Грузовой'
   end
 
   def choose_station
-    puts "Список станций"
+    puts 'Список станций'
     station = choose(select_station)
   end
 
   def choose(array)
-    puts "Выберите Index"
+    puts 'Выберите Index'
     i = 0
-    loop do 
+    loop do
       i = gets.chomp.to_i
-      if i >= 0 && i <= array.length - 1 
+      if i >= 0 && i <= array.length - 1
         break
       else
-        puts "Индекс в не диапазона"
+        puts 'Индекс в не диапазона'
       end
     end
     array[i]
   end
 
   def select_wagon(wagons)
-    wagons.each_with_index { |value,index| 
-      puts "Index: #{index}. Номер вагона: #{value.number}" 
-    }
+    wagons.each_with_index do |value, index|
+      puts "Index: #{index}. Номер вагона: #{value.number}"
+    end
   end
 
   def select_station
-    stations.each_with_index { |value,index| puts "Index: #{index}. Cтанция: #{value.name}" }
+    stations.each_with_index { |value, index| puts "Index: #{index}. Cтанция: #{value.name}" }
   end
 
   def select_route
-    routes.each_with_index { |value,index| 
+    routes.each_with_index do |value, index|
       arr = []
       value.stations.each { |st| arr << st.name }
-      puts "Index: #{index}. Путь следования: #{arr}" 
-    }
+      puts "Index: #{index}. Путь следования: #{arr}"
+    end
   end
 
   def select_train
-    trains.each_with_index { |value,index| puts "Index: #{index}. Поезд: #{value.number}" }
+    trains.each_with_index { |value, index| puts "Index: #{index}. Поезд: #{value.number}" }
   end
 
   def puts_route
-    puts "Список маршутов:"
+    puts 'Список маршутов:'
   end
 
   def puts_train
-    puts "Список поездов:"
+    puts 'Список поездов:'
   end
 end

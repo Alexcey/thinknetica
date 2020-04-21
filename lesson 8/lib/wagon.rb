@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'manufacturer'
 
-class Wagon 
+class Wagon
   include Manufacturer
   attr_reader :number, :balance, :type, :size
 
@@ -12,7 +14,7 @@ class Wagon
   end
 
   def set_balance(value)
-    @balance + value <= @size ? @balance += value : (puts "Сумма остатка и значения превышает размер")
+    @balance + value <= @size ? @balance += value : (puts 'Сумма остатка и значения превышает размер')
   end
 
   def get_balance

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 require_relative 'validate'
 
@@ -28,7 +30,7 @@ class Station
     puts trains.select { |train| train.type == type }
   end
 
-  #не тру метод, но для примера сойдет
+  # не тру метод, но для примера сойдет
   def remove(train)
     trains.delete(train)
   end
@@ -40,6 +42,6 @@ class Station
   private
 
   def validate!
-    raise "Имя обязательно" if name.empty?
+    raise 'Имя обязательно' if name.empty?
   end
 end

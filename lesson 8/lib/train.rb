@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'manufacturer'
 require_relative 'instance_counter'
 require_relative 'validate'
@@ -34,7 +36,7 @@ class Train
     up!
   end
 
-  def stop 
+  def stop
     stop!
   end
 
@@ -56,12 +58,12 @@ class Train
   end
 
   def station
-    puts self.route.stations[len - 1] if len > 0
-    puts self.route.stations[len]
-    puts self.route.stations[len + 1] if len + 1 <= route.stations.length - 1
+    puts route.stations[len - 1] if len > 0
+    puts route.stations[len]
+    puts route.stations[len + 1] if len + 1 <= route.stations.length - 1
   end
 
-  protected 
+  protected
 
   def validate!
     raise 'Номер обязательно' if number.empty?

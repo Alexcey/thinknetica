@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 require_relative 'validate'
 
 class Route
   include InstanceCounter
   include Validate
-  
+
   attr_reader :stations
 
   def initialize(first, last)
@@ -17,7 +19,7 @@ class Route
     stations.insert(-1, station)
   end
 
-  #не тру метод, но для примера сойдет
+  # не тру метод, но для примера сойдет
   def remove(station)
     stations.delete(station)
   end
@@ -25,7 +27,7 @@ class Route
   private
 
   def validate!
-    raise "Начальная станция обязательная" if stations.first.name.empty?
-    raise "Конечная станция обязательная" if stations.last.name.empty?
+    raise 'Начальная станция обязательная' if stations.first.name.empty?
+    raise 'Конечная станция обязательная' if stations.last.name.empty?
   end
 end
