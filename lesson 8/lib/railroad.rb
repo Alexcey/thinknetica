@@ -75,24 +75,6 @@ class RailRoad
     end
   end
 
-  # def seed
-  #  s1 = Station.new('Москва')
-  #  s2 = Station.new('Питер')
-  #  s3 = Station.new('Казань')
-  #  s4 = Station.new('Новгород')
-  #  stations.push(s1)
-  #  stations.push(s2)
-  #  stations.push(s3)
-  #  stations.push(s4)
-  #  trains << CargoTrain.new('#t1')
-  #  trains << PassengerTrain.new('#t2')
-
-  #  r1 = Route.new(s1, s2)
-  #  r2 = Route.new(s1, s3)
-  #  routes << r1
-  #  routes << r2
-  # end
-
   def create_stattion
     puts 'Имя станции:'
     stations.push(Station.new(gets.chomp.to_s))
@@ -217,7 +199,7 @@ class RailRoad
 
   def choose_station
     puts 'Список станций'
-    station = choose(select_station)
+    choose(select_station)
   end
 
   def choose(array)

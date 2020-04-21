@@ -19,7 +19,6 @@ class Route
     stations.insert(-1, station)
   end
 
-  # не тру метод, но для примера сойдет
   def remove(station)
     stations.delete(station)
   end

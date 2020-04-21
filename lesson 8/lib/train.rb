@@ -58,7 +58,7 @@ class Train
   end
 
   def station
-    puts route.stations[len - 1] if len > 0
+    puts route.stations[len - 1] if len.positive?
     puts route.stations[len]
     puts route.stations[len + 1] if len + 1 <= route.stations.length - 1
   end

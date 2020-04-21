@@ -11,7 +11,7 @@ class Station
   @@count = 0
 
   def initialize(name)
-    @name = name
+    @name = names
     validate!
     @trains = []
     @@count += 1
@@ -30,7 +30,6 @@ class Station
     puts trains.select { |train| train.type == type }
   end
 
-  # не тру метод, но для примера сойдет
   def remove(train)
     trains.delete(train)
   end
