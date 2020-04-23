@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'instance_counter'
 require_relative 'validate'
 
@@ -10,7 +8,7 @@ class Station
   attr_reader :trains, :name
   @@count = 0
 
-  def initialize(name)
+  def initialize(_name)
     @name = names
     validate!
     @trains = []
