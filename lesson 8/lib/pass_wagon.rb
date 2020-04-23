@@ -1,7 +1,7 @@
 require_relative 'wagon'
 
 class PassengerWagon < Wagon
-  def initialize(number, type = ':pass', size)
+  def initialize(number, size, type = ':pass')
     super
   end
 

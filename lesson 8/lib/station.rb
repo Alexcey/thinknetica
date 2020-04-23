@@ -25,7 +25,7 @@ class Station
   end
 
   def select(type)
-    puts trains.select { |train| train.type == type }
+    trains.select { |train| train.type == type }
   end
 
   def remove(train)

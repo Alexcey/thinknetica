@@ -58,7 +58,7 @@ class Train
   def station
     puts route.stations[len - 1] if len.positive?
     puts route.stations[len]
-    puts route.stations[len + 1] if len + 1 <= route.stations.length - 1
+    station_next
   end
 
   protected
@@ -74,5 +74,9 @@ class Train
 
   def stop!
     @speed = 0
+  end
+
+  def station_next
+    puts route.stations[len + 1] if len + 1 <= route.stations.length - 1
   end
 end

@@ -173,16 +173,16 @@ class RailRoad
 
   def list_wagon_in_train(train)
     train.wagons_block do |wagon|
-      puts "#{type_wagon(wagon)}. Всего мест: #{wagon.size}. Свободно: #{wagon.get_balance}. Занято: #{wagon.size - wagon.get_balance}"
+      puts "#{type_wagon(wagon)}.Всего мест: #{wagon.size}.Свободно: #{wagon.left}.Занято: #{wagon.size - wagon.left}"
     end
   end
 
-  def change_balance_in_wagon
+  def balance_in_wagon
     wagon = choose(select_wagon(choose(select_train).wagons))
     puts "Номер вагона: #{wagon.number}. Размер: #{wagon.size} . Занято: #{wagon.balance}"
     puts "Изменить #{type_wagon(wagon)}:"
     value = gets.chomp.to_i
-    wagon.set_balance(value)
+    wagon.change_place(value)
   end
 
   private
@@ -205,11 +205,10 @@ class RailRoad
     i = 0
     loop do
       i = gets.chomp.to_i
-      if i >= 0 && i <= array.length - 1
-        break
-      else
-        puts 'Индекс в не диапазона'
-      end
+
+      break if i >= 0 && i <= array.length - 1
+
+      puts 'Индекс в не диапазона'
     end
     array[i]
   end

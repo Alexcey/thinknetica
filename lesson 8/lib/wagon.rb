@@ -11,11 +11,11 @@ class Wagon
     @balance = 0
   end
 
-  def set_balance(value)
+  def change_place(value)
     @balance + value <= @size ? @balance += value : (puts 'Сумма остатка и значения превышает размер')
   end
 
-  def get_balance
+  def left
     @size - @balance
   end
 end
