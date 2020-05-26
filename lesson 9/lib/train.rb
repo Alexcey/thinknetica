@@ -1,13 +1,18 @@
 require_relative 'manufacturer'
 require_relative 'instance_counter'
-require_relative 'validate'
+require_relative 'validation'
 
 class Train
   include Manufacturer
   include InstanceCounter
-  include Validate
+  include Validation
   attr_reader :speed, :type, :number, :route
   attr_accessor :wagons
+
+  validate :number, :presence
+  validate :number, :type, String
+  validate :number, :format, NUMBER_REGEXP
+  validate :type, :presence
 
   NUMBER_FORMAT = /^[\w\d]{3}-?[\w\d]{2}$/i.freeze
 

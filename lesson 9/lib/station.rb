@@ -1,12 +1,16 @@
 require_relative 'instance_counter'
-require_relative 'validate'
+require_relative 'validation'
 
 class Station
   include InstanceCounter
-  include Validate
+  include Validation
 
   attr_reader :trains, :name
   @@count = 0
+
+  validate :name, :presence
+  validate :name, :type, String
+  validate :name, :format, /[\d\w]+/
 
   def initialize(_name)
     @name = names

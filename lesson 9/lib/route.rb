@@ -1,14 +1,19 @@
 require_relative 'instance_counter'
-require_relative 'validate'
+require_relative 'validation'
 
 class Route
   include InstanceCounter
-  include Validate
+  include Validation
 
   attr_reader :stations
 
+  validate :first, :presence
+  validate :last, :presence
+
   def initialize(first, last)
-    @stations = [first, last]
+    @first = first
+    @last = last
+    @stations = [@first, @last]
     validate!
     register_instance
   end
@@ -19,12 +24,5 @@ class Route
 
   def remove(station)
     stations.delete(station)
-  end
-
-  private
-
-  def validate!
-    raise 'Начальная станция обязательная' if stations.first.name.empty?
-    raise 'Конечная станция обязательная' if stations.last.name.empty?
   end
 end
